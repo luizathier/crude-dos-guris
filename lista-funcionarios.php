@@ -13,11 +13,30 @@ include_once './include/header.php';
       <table>
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Cargo</th>
-            <th>Setor</th>
-            <th>Ações</th>
+          <?php
+          $sql = "SELECT f.FuncionarioID, f.Nome, c.Nome AS Cargo, s.Nome AS Setor
+                  FROM funcionarios f
+                  LEFT JOIN cargos c ON f.CargoID = c.CargoID
+                  LEFT JOIN setor s ON f.SetorID = s.SetorID";
+          $resultado = mysqli_query($conexao, $sql);
+
+          if (mysqli_num_rows($resultado) > 0) {
+              while ($row = mysqli_fetch_assoc($resultado)) {
+                  echo "<tr>";
+                  echo "<td>" . $row['FuncionarioID'] . "</td>";
+                  echo "<td>" . $row['Nome'] . "</td>";
+                  echo "<td>" . $row['Cargo'] . "</td>";
+                  echo "<td>" . $row['Setor'] . "</td>";
+                  echo "<td>
+                          <a href='salvar-funcionarios.php?id=" . $row['FuncionarioID'] . "' class='btn btn-edit'>Editar</a>
+                          <a href='excluir-funcionario.php?id=" . $row['FuncionarioID'] . "' class='btn btn-delete' onclick=\"return confirm('Deseja excluir este funcionário?');\">Excluir</a>
+                        </td>";
+                  echo "</tr>";
+              }
+          } else {
+              echo "<tr><td colspan='5'>Nenhum funcionário encontrado</td></tr>";
+          }
+          ?>
           </tr>
         </thead>
         <tbody>

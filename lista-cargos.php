@@ -14,7 +14,6 @@ include_once './include/header.php';
           <thead>
             <tr>
             <?php
-          // consulta os cargos
           $sql = 'SELECT * FROM cargos';
           $resultado = mysqli_query($conexao,$sql);
 
