@@ -13,11 +13,25 @@ include_once './include/header.php';
       <table>
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Categoria</th>
-            <th>Preço</th>
-            <th>Ações</th>
+          <?php
+            $sql = "SELECT p.ProdutoID, p.Nome, p.Preco, c.Nome AS Categoria
+            FROM produtos p
+            LEFT JOIN categorias c ON p.CategoriaID = c.CategoriaID";
+            $resultado = mysqli_query($conexao, $sql);
+            if (mysqli_num_rows($resultado) > 0) {
+              while ($row = mysqli_fetch_assoc($resultado)) {
+              echo "<tr>";
+              echo "<td>" . $row['ProdutoID'] . "</td>";
+             echo "<td>" . $row['Nome'] . "</td>";
+             echo "<td>" . $row['Categoria'] . "</td>";
+             echo "<td>R$ " . number_format($row['Preco'], 2, ',', '.') . "</td>";
+            echo "<td>
+              <a href='salvar-produtos.php?id=" . $row['ProdutoID'] . "' class='btn btn-edit'>Editar</a>
+              <a href='excluir-produto.php?id=" . $row['ProdutoID'] . "' class='btn btn-delete' onclick=\"return confirm('Deseja excluir este produto?');\">Excluir</a> </td>";
+        echo "</tr>"; }
+      } else {
+    echo "<tr><td colspan='5'>Nenhum produto encontrado</td></tr>";}
+          ?>
           </tr>
         </thead>
         <tbody>

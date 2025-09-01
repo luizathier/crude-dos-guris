@@ -13,11 +13,23 @@ include_once './include/header.php';
         <table>
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Nome</th>
-              <th>Andar</th>
-              <th>Cor</th>
-              <th>Ações</th>
+            <?php
+              $sql = "SELECT * FROM setor";
+              $resultado = mysqli_query($conexao, $sql);
+              if (mysqli_num_rows($resultado) > 0) {
+              while ($row = mysqli_fetch_assoc($resultado)) {
+                echo "<tr>";
+               echo "<td>" . $row['SetorID'] . "</td>";
+                echo "<td>" . $row['Nome'] . "</td>";
+                echo "<td>" . $row['Andar'] . "</td>";
+                echo "<td>" . $row['Cor'] . "</td>";
+                echo "<td>
+                <a href='salvar-setores.php?id=" . $row['SetorID'] . "' class='btn btn-edit'>Editar</a>
+                <a href='excluir-setor.php?id=" . $row['SetorID'] . "' class='btn btn-delete' onclick=\"return confirm('Deseja excluir este setor?');\">Excluir</a> </td>"; 
+                echo "</tr>"; }
+              } else {echo "<tr><td colspan='5'>Nenhum setor encontrado</td></tr>";}
+
+            ?>
             </tr>
           </thead>
           <tbody>
