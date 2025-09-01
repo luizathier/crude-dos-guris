@@ -13,10 +13,27 @@ include_once './include/header.php';
         <table>
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Nome</th>
-              <th>Teto Salárial</th>
-              <th>Ações</th>
+            <?php
+          // consulta os cargos
+          $sql = 'SELECT * FROM cargos';
+          $resultado = mysqli_query($conexao,$sql);
+
+          if (mysqli_num_rows($resultado) > 0) {
+              while ($row = mysqli_fetch_assoc($resultado)) {
+                  echo "<tr>";
+                  echo "<td>" . $row['CargoID'] . "</td>";
+                  echo "<td>" . $row['Nome'] . "</td>";
+                  echo "<td>" . $row['TetoSalarial'] . "</td>";
+                  echo "<td>
+                          <a href='salvar-cargos.php?id=" . $row['CargoID'] . "' class='btn btn-edit'>Editar</a>
+                          <a href='excluir-cargo.php?id=" . $row['CargoID'] . "' class='btn btn-delete' onclick=\"return confirm('Deseja excluir este cargo?');\">Excluir</a>
+                        </td>";
+                  echo "</tr>";
+              }
+          } else {
+              echo "<tr><td colspan='4'>Nenhum cargo encontrado</td></tr>";
+          }
+          ?>
             </tr>
           </thead>
           <tbody>
