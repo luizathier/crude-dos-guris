@@ -5,11 +5,17 @@ include_once   '../include/conexao.php';
 
 // captura a acao dos dados
 $acao = $_GET['acao'];
+$id = $_GET['id'];
 
 // validacao
 switch ($acao) {
-    case 'value':
-        # code...
+    case 'excluir':
+// montar o SQL 
+$sql = 'DELETE FROM cargos WHERE CargoID ='.$id;
+// executar o SQL 
+msqli_query($conexao,$sql);
+// redirecionar a pagina
+header("Location: ../lista-cargos.php");
         break;
     
     default:
