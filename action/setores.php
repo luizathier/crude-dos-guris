@@ -8,7 +8,6 @@ $acao = $_GET['acao'];
 
 // validacao
 switch ($acao) {
-    case 'value':
         case 'excluir':
             // montar o SQL
             $sql = 'DELETE FROM setor WHERE SetorID ='.$id;
