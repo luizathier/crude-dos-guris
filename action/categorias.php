@@ -8,10 +8,21 @@ $acao = $_GET['acao'];
 
 // validacao
 switch ($acao) {
-    case 'value':
-        # code...
+     case 'excluir':
+// montar o SQL 
+$sql = 'DELETE FROM categorias WHERE CategoriaID ='.$id;
+ // executar o SQL 
+ $resultado = mysqli_query($conexao, $sql);
+// redirecionar a pagina
+header("Location: ../lista-categorias.php");
         break;
-    
+     case 'salvar':
+        if(!empty($id);){
+            $sql = 'UPDATE';
+        }else{
+            $sql = 'INSERT INTO';
+        }
+        break;
     default:
         # code...
         break;

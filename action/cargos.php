@@ -13,11 +13,18 @@ switch ($acao) {
 // montar o SQL 
 $sql = 'DELETE FROM cargos WHERE CargoID ='.$id;
 // executar o SQL 
-msqli_query($conexao,$sql);
+$resultado = mysqli_query($conexao, $sql);
 // redirecionar a pagina
 header("Location: ../lista-cargos.php");
         break;
-    
+    case 'salvar':
+        if(!empty($id);){
+            $sql = 'UPDATE';
+        }else{
+            $sql = 'INSERT INTO';
+        }
+        break;
+
     default:
         # code...
         break;
