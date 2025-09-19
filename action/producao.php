@@ -5,6 +5,7 @@ include_once   '../include/conexao.php';
 
 // captura a acao dos dados
 $acao = $_GET['acao'];
+$id = $_GET['id'];
 
 // validacao
 switch ($acao) {
