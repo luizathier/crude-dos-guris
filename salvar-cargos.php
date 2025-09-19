@@ -5,6 +5,12 @@ include_once './include/conexao.php';
 include_once './include/header.php';
 ?>
   <main>
+  <?php
+$id = $_GET['id'];
+$sql = 'SELECT * FROM cargos WHERE CargoID = '.$id;
+$resultado = mysqli_query($conexao, $sql);
+$dados = mysqli_fetch_assoc($resultado);
+?>
 
        <!-- Telas CRUD -->
    <div id="cargos" class="tela">
