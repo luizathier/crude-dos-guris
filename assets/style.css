@@ -117,3 +117,7 @@ body {
   .btn:hover {
     opacity: 0.9;
   }
+
+  .btn-save{
+    background-color: #333;
+  }
