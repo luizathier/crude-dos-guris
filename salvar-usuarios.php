@@ -1,13 +1,11 @@
 <?php
 
-
 include_once './include/logado.php';
 
 include_once './include/conexao.php';
 
 include_once './include/header.php';
  
-
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 $dados = ['Nome' => '', 'Email' => '', 'Usuario' => ''];
@@ -28,7 +26,6 @@ if ($id > 0) {
 }
  
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $nome = mysqli_real_escape_string($conexao, $_POST['Nome']);
@@ -41,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
  
     if ($id > 0) {
 
+        // Atualizar
 
         if (!empty($senha)) {
 
@@ -64,11 +62,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
  
         if (mysqli_query($conexao, $sql)) {
 
-            echo "<script>alert('Usuário atualizado com sucesso!'); window.location='usuarios.php';</script>";
+            echo "<script>alert('Usuário atualizado com sucesso!'); window.location='" . $_SERVER['HTTP_REFERER'] . "';</script>";
+
+            exit;
 
         } else {
 
-            echo "<script>alert('Erro ao atualizar usuário.');</script>";
+            echo "<script>alert('Erro ao atualizar usuário!'); window.history.back();</script>";
+
+            exit;
 
         }
  
@@ -83,11 +85,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if (mysqli_query($conexao, $sql)) {
 
-            echo "<script>alert('Usuário cadastrado com sucesso!'); window.location='usuarios.php';</script>";
+            echo "<script>alert('Usuário cadastrado com sucesso!'); window.location='" . $_SERVER['HTTP_REFERER'] . "';</script>";
+
+            exit;
 
         } else {
 
-            echo "<script>alert('Erro ao cadastrar usuário.');</script>";
+            echo "<script>alert('Erro ao cadastrar usuário!'); window.history.back();</script>";
+
+            exit;
 
         }
 
@@ -114,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <input type="password" name="Senha" <?php echo ($id == 0) ? 'required' : ''; ?>><br><br>
  
       <button type="submit" class="btn btn-save">Salvar</button>
-<a href="usuarios.php" class="btn btn-cancel">Cancelar</a>
+<a href="javascript:history.back()" class="btn btn-cancel">Cancelar</a>
 </form>
 </div>
  
