@@ -1,6 +1,5 @@
 <?php
 
-// includes
 
 include_once './include/logado.php';
 
@@ -8,13 +7,11 @@ include_once './include/conexao.php';
 
 include_once './include/header.php';
  
-// Se houver ID, é edição
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 $dados = ['Nome' => '', 'Email' => '', 'Usuario' => ''];
  
-// Buscar dados do usuário (modo editar)
 
 if ($id > 0) {
 
@@ -30,7 +27,7 @@ if ($id > 0) {
 
 }
  
-// Se o formulário for enviado
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -44,7 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
  
     if ($id > 0) {
 
-        // Atualizar
 
         if (!empty($senha)) {
 
@@ -78,7 +74,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
  
     } else {
 
-        // Inserir novo
 
         $senhaCriptografada = password_hash($senha, PASSWORD_DEFAULT);
 
@@ -126,5 +121,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php include_once './include/footer.php'; ?>
 
  
-cria o salvar-usuarios.php
+
  
